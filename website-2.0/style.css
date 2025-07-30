@@ -1,0 +1,347 @@
+/* ===== Color palette ===== */
+:root {
+  --bg-main: #282a2e;       /* main charcoal background */
+  --bg-header: #1e2124;     /* darker header */
+  --bg-card:  #2f3237;      /* bookmark card */
+  --border:   #4a4c4f;      /* subtle borders */
+
+  --text-primary:  #f0f0f0; /* main text */
+  --text-secondary:#e0e0e0; /* labels, metadata */
+
+  --accent-teal:   #20b2aa; /* interactive primary */
+  --accent-teal-dark:#1ca098;
+  --accent-blue:   #5dade2; /* edit button */
+  --accent-blue-dark:#4a93cc;
+  --accent-red:    #e74c3c; /* delete button */
+  --accent-red-dark:#c0392b;
+  --accent-green:  #39FF14; /* bright green for buttons and tags */
+  --accent-green-dark:#32e012;
+}
+
+/* ===== Base ===== */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { font-size: 16px; }
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Inter', system-ui, sans-serif;
+  line-height: 1.55;
+}
+
+/* ===== Logo in top left corner ===== */
+.logo-container {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 1000;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border: 2px solid var(--accent-green);
+}
+
+.logo:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 20px rgba(57, 255, 20, 0.4);
+}
+
+/* ===== Modal for logo enlargement ===== */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(4px);
+}
+
+.modal.show {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 80%;
+  max-height: 80%;
+  animation: modalZoom 0.3s ease;
+}
+
+@keyframes modalZoom {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-logo {
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+  max-width: 500px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.close {
+  position: absolute;
+  top: -40px;
+  right: 0;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close:hover {
+  color: var(--accent-green);
+}
+
+/* ===== Header ===== */
+.app-header {
+  background: var(--bg-header);
+  padding: 2rem 1rem;
+  text-align: center;
+  margin-top: 60px; /* Account for fixed logo */
+}
+.app-header h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+/* ===== Layout container ===== */
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem 4rem;
+}
+
+/* ===== Sections ===== */
+.section + .section { margin-top: 3rem; }
+.section h2 {
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+/* ===== Form ===== */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.label-text {
+  display: inline-block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  font-weight: 400;
+}
+input[type="url"],
+input[type="text"] {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  border: 2px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: border-color 0.25s;
+}
+input:focus {
+  border-color: var(--accent-teal);
+  outline: none;
+}
+/* placeholders slightly darker */
+::placeholder { color: #c1c1c1; }
+
+/* ===== Buttons ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  font-weight: 600;
+  transition: background 0.25s;
+}
+.btn-primary {
+  background: var(--accent-green); /* Changed from orange to bright green */
+  color: var(--bg-main);
+}
+.btn-primary:hover { 
+  background: var(--accent-green-dark); 
+}
+
+/* smaller "link-buttons" */
+.btn-ghost {
+  padding: 0.4rem 0.8rem;
+  font-size: 0.9rem;
+  border-radius: 4px;
+}
+.btn-edit {
+  background: var(--accent-blue);
+  color: var(--bg-main);
+}
+.btn-edit:hover { background: var(--accent-blue-dark); }
+.btn-delete {
+  background: var(--accent-red);
+  color: var(--bg-main);
+}
+.btn-delete:hover { background: var(--accent-red-dark); }
+
+/* ===== Search ===== */
+.search-wrapper {
+  position: relative;
+}
+.search-box {
+  width: 100%;
+  padding: 0.75rem 2.75rem 0.75rem 1rem;
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: 30px;
+  font-size: 1rem;
+  color: var(--text-primary);
+  transition: border-color 0.25s;
+}
+.search-box:focus { border-color: var(--accent-teal); }
+.search-icon {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+/* ===== Bookmark list ===== */
+.bookmark-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.bookmark-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: transform 0.2s, border-color 0.25s;
+}
+.bookmark-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--accent-teal);
+}
+
+/* primary link */
+.bookmark-url {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--accent-teal);
+  text-decoration: none;
+  word-break: break-all;
+}
+.bookmark-url:hover { text-decoration: underline; }
+
+/* title */
+.bookmark-title {
+  font-size: 1rem;
+  margin-top: 0.25rem;
+  color: var(--text-primary);
+}
+
+/* tags */
+.tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+.tag {
+  padding: 0.25rem 0.75rem;
+  font-size: 0.8rem;
+  border: 1px solid var(--accent-green); /* Changed from teal to bright green */
+  border-radius: 50px;
+  background: transparent;
+  color: var(--accent-green); /* Changed from teal to bright green */
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+}
+.tag:hover,
+.tag.active {
+  background: var(--accent-green); /* Changed from teal to bright green */
+  color: var(--bg-main);
+}
+
+/* metadata & actions */
+.meta {
+  margin-top: 0.75rem;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+}
+.actions { display: flex; gap: 1rem; }
+
+/* ===== Empty state ===== */
+.empty-state {
+  margin-top: 1.5rem;
+  font-size: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+/* ===== Utility ===== */
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  border: 0;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 600px) {
+  .container { padding: 0 1rem 3rem; }
+  .logo-container {
+    top: 15px;
+    left: 15px;
+  }
+  .logo {
+    width: 50px;
+    height: 50px;
+  }
+  .app-header {
+    margin-top: 50px;
+    padding: 1.5rem 1rem;
+  }
+  .modal-content {
+    max-width: 90%;
+    max-height: 70%;
+  }
+  .close {
+    top: -35px;
+    font-size: 28px;
+  }
+}

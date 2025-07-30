@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>deep URLibrary</title>
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Logo in top left corner -->
+  <div class="logo-container">
+    <img src="my-logo.jpg" alt="deep URLibrary Logo" class="logo" id="logoImage">
+  </div>
+
+  <!-- Logo Modal for enlarged view -->
+  <div id="logoModal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="closeModal">&times;</span>
+      <img src="my-logo.jpg" alt="deep URLibrary Logo - Full Size" class="modal-logo">
+    </div>
+  </div>
+
+  <header class="app-header">
+    <h1>deep URLibrary</h1>
+  </header>
+
+  <main class="container">
+    <!-- ── Add URL ────────────────────────────────────────── -->
+    <section class="section">
+      <h2>Add New URL</h2>
+      <form id="bookmarkForm" autocomplete="off">
+        <label>
+          <span class="label-text">URL *</span>
+          <input id="urlInput" type="url" required placeholder="https://example.com">
+        </label>
+
+        <label>
+          <span class="label-text">Title</span>
+          <input id="titleInput" type="text" placeholder="Optional title">
+        </label>
+
+        <label>
+          <span class="label-text">Tags (comma-separated) *</span>
+          <input id="tagsInput" type="text" required placeholder="e.g. video, editing">
+        </label>
+
+        <button type="submit" class="btn btn-primary">
+          <span class="icon">＋</span> Add Bookmark
+        </button>
+      </form>
+    </section>
+
+    <!-- ── Search ──────────────────────────────────────────────── -->
+    <section class="section">
+      <label class="search-wrapper">
+        <span class="visually-hidden">Search</span>
+        <input id="searchInput" class="search-box"
+               type="text"
+               placeholder="Search by tag or keyword…">
+        <span class="search-icon">🔍</span>
+      </label>
+    </section>
+
+    <!-- ── Bookmarks List ──────────────────────────────────────── -->
+    <section class="section">
+      <h2>Your Bookmarks</h2>
+      <ul id="bookmarkList" class="bookmark-list"></ul>
+      <p id="emptyState" class="empty-state" hidden>No bookmarks found.</p>
+    </section>
+  </main>
+
+  <!-- ── Scripts ──────────────────────────────────────────────── -->
+  <script src="app.js"></script>
+</body>
+</html>
